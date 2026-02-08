@@ -183,3 +183,29 @@ footer p {
 }
 .line.vertical.left { left: 26px; }
 .line.vertical.right { right: 26px; }
+
+/* ---------------- MOBILE RESPONSIVE ---------------- */
+@media (max-width: 768px) {
+
+    /* Reason container becomes static flow in mobile */
+    #reason-container {
+        position: static !important;
+        margin: 15px auto !important;
+        width: 90% !important;
+        transform: none !important; /* remove pop animation offset */
+    }
+
+    #reason-container img {
+        width: 180px !important;
+        height: 180px !important;
+    }
+
+    /* Optional: make reason text a bit smaller for mobile */
+    #reason-container p {
+        font-size: 20px !important;
+    }
+        /* HIDE hearts and lines on mobile */
+    .line {
+        display: none !important;
+    }
+}

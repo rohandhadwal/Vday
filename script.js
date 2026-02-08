@@ -25,41 +25,48 @@ let reasonIndex = 0;
 noButton.addEventListener('click', () => {
     clickCount++;
 
-    // Shrink the No button progressively
-    const scaleMap = [0.9, 0.7, 0.5, 0.3, 0]; 
+    const scaleMap = [0.9, 0.7, 0.5, 0.3, 0];
     const fontSizeMap = ["20px", "18px", "16px", "14px", "0px"];
-    noButton.style.transform = `scale(${scaleMap[Math.min(clickCount-1, scaleMap.length-1)]})`;
-    noButton.style.fontSize = fontSizeMap[Math.min(clickCount-1, fontSizeMap.length-1)];
+
+    noButton.style.transform = `scale(${scaleMap[Math.min(clickCount - 1, scaleMap.length - 1)]})`;
+    noButton.style.fontSize = fontSizeMap[Math.min(clickCount - 1, fontSizeMap.length - 1)];
     noButtonAudio.play();
 
-    // Show reason if available
+    // --- MOBILE: hide main GIF only on first NO click ---
+    if (window.innerWidth <= 768 && clickCount === 1) {
+        if (!image.classList.contains("hidden")) {
+            image.classList.add("hidden");
+        }
+    }
+
     if (reasonIndex < personalReasons.length) {
         const reason = personalReasons[reasonIndex];
         reasonText.textContent = reason.text;
         reasonImg.src = reason.img;
         reasonContainer.classList.remove("hidden");
 
-        const rect = gifImage.getBoundingClientRect();
-        const reasonWidth = reasonImg.offsetWidth || 180; 
-        const offsetX = 250; 
-        const offsetY = rect.top + rect.height / 2 - (reasonImg.offsetHeight || 180) / 2;
+        // --- Desktop floating logic ---
+        if (window.innerWidth > 768) {
+            const rect = gifImage.getBoundingClientRect();
+            const reasonWidth = reasonImg.offsetWidth || 180;
+            const offsetX = 250;
+            const offsetY = rect.top + rect.height / 2 - (reasonImg.offsetHeight || 180) / 2;
 
-        // Alternate left and right
-        if (reasonIndex % 2 === 0) {
-            reasonContainer.style.left = rect.left - offsetX - reasonWidth + "px";
-        } else {
-            reasonContainer.style.left = rect.right + offsetX + "px";
+            if (reasonIndex % 2 === 0) {
+                reasonContainer.style.left = rect.left - offsetX - reasonWidth + "px";
+            } else {
+                reasonContainer.style.left = rect.right + offsetX + "px";
+            }
+            reasonContainer.style.top = offsetY + "px";
+
+            reasonContainer.style.transform = "scale(0.9)";
+            setTimeout(() => { reasonContainer.style.transform = "scale(1)"; }, 150);
         }
-        reasonContainer.style.top = offsetY + "px";
-
-        // small pop animation
-        reasonContainer.style.transform = "scale(0.9)";
-        setTimeout(() => { reasonContainer.style.transform = "scale(1)"; }, 150);
 
         reasonIndex++;
     }
 
-    // On 5th click, hide No button and last reason
+    // --- On 5th click: show GIF again ---
     if (clickCount >= 5) {
         noButton.style.display = "none";
         reasonContainer.classList.add("hidden");
@@ -67,10 +74,16 @@ noButton.addEventListener('click', () => {
         const buttonContainer = document.querySelector('.button');
         buttonContainer.style.justifyContent = 'center';
 
-        image.src = "images/no.gif";
+        if (window.innerWidth <= 768) {
+            image.classList.remove("hidden"); // show gif again
+        } else {
+            image.src = "images/no.gif";
+        }
+
         document.querySelector('.title').textContent = "Chalo bas, say yes now 🐶";
     }
 });
+
 
 // YES button click
 function yesFunction() {

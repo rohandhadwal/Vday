@@ -1,0 +1,185 @@
+/* ---------------- Reset / Basic ---------------- */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* ---------------- Background ---------------- */
+.background-image {
+    background: linear-gradient(to bottom, #FFF9F4, #F3C1C6);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ---------------- Container ---------------- */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 50px);
+}
+
+/* ---------------- Title ---------------- */
+.title {
+    font-family: "Caveat", cursive;
+    font-size: 40px;
+    color: #7A1F2B;
+    margin-top: 15px;
+    text-align: center;
+}
+
+/* ---------------- Main GIF ---------------- */
+#image {
+    width: 280px;
+    max-width: 80vw;
+    height: auto;
+    object-fit: contain;   /* prevent cropping */
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    display: block;
+    margin: 0 auto 20px auto;
+}
+
+/* ---------------- Reason Container ---------------- */
+#reason-container {
+    position: absolute;
+    text-align: center;
+    width: 220px;
+    max-width: 80vw;
+    transition: all 0.5s ease, transform 0.3s ease;
+}
+
+#reason-container p {
+    font-family: "Caveat", cursive;
+    font-size: 22px;
+    color: #7A1F2B;
+    margin-bottom: 10px;
+    word-wrap: break-word;
+}
+
+#reason-container img {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+}
+
+/* ---------------- Final Image ---------------- */
+#final-image {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-top: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    display: block;  /* remove display:none */
+}
+
+
+/* ---------------- Buttons ---------------- */
+.button {
+    display: flex;
+    gap: 40px;
+    margin-top: 15px;
+}
+
+button {
+    padding: 15px 30px;
+    border-radius: 20px;
+    width: 150px;
+    font-size: 20px;
+    border: none;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* YES Button */
+.yes {
+    background-color: #7ED957;
+    animation: pulse 1.5s infinite;
+}
+.yes:hover {
+    background-color: #65C341;
+    transform: scale(1.05);
+}
+
+/* NO Button */
+.no {
+    background-color: #E26A6A;
+}
+.no:hover {
+    background-color: #CC5C5C;
+    transform: scale(1.05);
+}
+
+/* Heartbeat animation */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* ---------------- Footer ---------------- */
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    color: #7A1F2B;
+    font-weight: 500;
+}
+footer p {
+    margin: 0;
+}
+
+/* ---------------- Hidden ---------------- */
+.hidden {
+    display: none !important;
+}
+
+/* Hearts */
+.heart {
+    position: fixed;
+    font-size: 32px;
+    color: #FF0000;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+.top-left { top: 10px; left: 10px; }
+.top-right { top: 10px; right: 10px; }
+.bottom-left { bottom: 10px; left: 10px; }
+.bottom-right { bottom: 10px; right: 10px; }
+
+/* Lines */
+.line {
+    position: fixed;
+    background-color: #FF0000;
+    z-index: 999;
+    pointer-events: none;
+}
+
+/* Horizontal top/bottom */
+.line.horizontal {
+    height: 2px;               /* line thickness */
+    width: calc(100% - 80px);  /* full width minus hearts */
+    left: 40px;                 /* start after left heart */
+}
+
+/* Vertical left/right */
+.line.vertical {
+    width: 2px;
+    height: calc(100% - 80px);
+    top: 40px;
+}
+.line.vertical.left { left: 26px; }
+.line.vertical.right { right: 26px; }

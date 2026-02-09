@@ -76,6 +76,7 @@ noButton.addEventListener('click', () => {
 
         if (window.innerWidth <= 768) {
             image.classList.remove("hidden"); // show gif again
+            image.src = "images/no.gif";
         } else {
             image.src = "images/no.gif";
         }
